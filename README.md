@@ -1,3 +1,7 @@
+### Deployed Link: https://genai-ai-cancer-detection.onrender.com
+#### Note:-
+This website is deployed on a free service called (Render.com). So It might take 40-50 sec to open for the first time in your pc, but once it opened it will be much faster.
+
 # AI-Powered Cancer Detection Solution
 
 Welcome to the **AI-Powered Cancer Detection Solution** repository! This project aims to revolutionize the early detection of cancer by using cutting-edge technologies like artificial intelligence (AI), cloud storage, OCR (Optical Character Recognition), and document processing tools. Our solution allows users to upload medical images, PDF reports, or text files, which are then analyzed by our AI model to detect early signs of cancer, thus improving patient outcomes and healthcare efficiency.
