@@ -1,389 +1,232 @@
 /* General Reset */
 * {
-    margin: 0;
-    padding: 0;
-   
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    background-color: #f4f4f4; 
-    color: #333; 
-}
-
-/* Header Styles */
-.nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #4CAF50; /* Green background for header */
-    padding: 15px 20px;
-}
-
-.nav .logo {
-    font-size: 1.5em;
-    color: white; /* Logo color */
-    font-weight: bold;
-}
-
-.nav ul {
-    list-style: none;
-    display: flex;
-}
-
-.nav li {
-    margin-left: 20px;
-}
-
-.nav a {
-    text-decoration: none;
-    color: white; /* Link color */
-    padding: 8px 15px;
-    transition: background-color 0.3s ease; /* Smooth transition */
-}
-
-.nav a:hover {
-    background-color: #45a049; /* Darker green on hover */
-    border-radius: 5px; /* Rounded corners for hover effect */
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f4f4f4;
+  color: #333;
 }
 
 /* Hero Section Styles */
-#hero {
-    background-image: url('https://qtxasset.com/cdn-cgi/image/f=auto/https://qtxasset.com/quartz/qcloud5/media/image/fiercehealthcare/1593186840/computer-3343887_1920.jpg/computer-3343887_1920.jpg?VersionId=C4G9tR8FvbYIgUsRle96MiLYMG_wr0b.'); /* Add a background image for hero section */
-    background-size: cover; /* Cover the entire section */
-    background-position: center;
-    color: white; /* Text color for hero */
-    text-align: center;
-    padding: 220px 20px;
-    
+.hero-section {
+  background-image: url("https://qtxasset.com/cdn-cgi/image/f=auto/https://qtxasset.com/quartz/qcloud5/media/image/fiercehealthcare/1593186840/computer-3343887_1920.jpg/computer-3343887_1920.jpg?VersionId=C4G9tR8FvbYIgUsRle96MiLYMG_wr0b.");
+  background-size: cover;
+  background-position: center;
+  color: white;
+  text-align: center;
+  padding: 150px 20px;
 }
 
 .hero-section h1 {
-    font-size: 2.5em;
-    margin-bottom: 20px;
+  font-size: 2.5em;
+  margin-bottom: 20px;
 }
 
 .hero-section p {
-    font-size: 1.2em;
+  font-size: 1.2em;
 }
 
 /* Call to Action Styles */
 .cta-section {
-    background-color: #e7f3fe; /* Light blue background */
-    padding: 20px;
+  background-color: #e7f3fe;
 }
 
 .cta-button {
-    margin-top: 5px;
-    margin-bottom: 30px;
-    display: inline-block;
-    background-color: #4CAF50; /* Button color */
-    color: white;
-    padding: 5px 10px;
-    text-decoration: none;
-    border-radius: 10px;
-    transition: background-color 0.3s;
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+  transition: background-color 0.3s;
 }
 
 .cta-button:hover {
-    background-color: #45a049; /* Darker green on hover */
+  background-color: #45a049;
 }
 
 /* Upload Section Styles */
-.upload-main-container{
-    background-image: url('https://cms-api-in.myhealthcare.co/image/20220910103120.jpeg'); /* Add a background image for hero section */
-    background-size: cover; /* Cover the entire section */
-    background-position: center;
-    padding: 100px;
-   
-    background-color: rgb(78, 15, 15); /* White background for upload section */
-    
-    text-align: center;
+.upload-main-container {
+  background-image: url("https://cms-api-in.myhealthcare.co/image/20220910103120.jpeg");
+  background-size: cover;
+  background-position: center;
+  padding: 100px 0;
+  background-color: rgba(78, 15, 15, 0.8);
+  text-align: center;
 }
-.scanOptionsContainer label{
-    margin: 0 10px;
-    font-size: 18px;
-}
-.file-type-options label {
-    margin: 0 10px;
-    font-size: 18px;
-}
+
 .upload-container {
-    margin: 20px auto;
-    padding: 20px;
-    max-width: 800px;
-    background-color: white; /* White background for upload section */
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Soft shadow */
-    text-align: center;
+  margin: 20px auto;
+  padding: 30px;
+  max-width: 600px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-textarea {
-    width: 100%;
-    max-width: 400px;
-    height: 100px;
+.upload-container h2 {
+  margin-bottom: 20px;
+  color: #4caf50;
 }
 
-.file-input-container {
-    margin-top: 20px;
-    margin-bottom: 10px;
-    display: flex;
-    justify-content: center;
-    
+.upload-container label {
+  font-weight: bold;
 }
 
-.submit-button {
-    margin-top: 10px;
-    background-color: #4CAF50; /* Button color */
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px; /* Rounded corners */
-    cursor: pointer;
-    transition: background-color 0.3s;
+.custom-file-label.selected {
+  background-color: #e9ecef;
 }
 
-.submit-button:hover {
-    background-color: #45a049; /* Darker green on hover */
+#scanOptionsContainer label,
+.file-type-options label {
+  font-size: 16px;
 }
 
 /* Footer Styles */
 .footer {
-    text-align: center;
-    padding: 20px;
-    background-color: #4CAF50; /* Green background for footer */
-    color: white; /* Footer text color */
-    position: relative; /* Ensure footer stays at the bottom */
-    bottom: 0;
-    width: 100%;
+  background-color: #4caf50;
+  color: white;
+  padding: 20px 0;
 }
 
 /* Features Section Styles */
 .features-section {
-   
-    padding: 50px;
-    background-color: #ffffff; /* White background for section */
-   
-    text-align: left; /* Left align text */
+  background-color: #ffffff;
+  padding: 50px 0;
 }
 
 .features-section h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 2em; /* Larger font size for section title */
-    color: #333; /* Title color */
+  font-size: 2em;
+  color: #333;
 }
 
-.features-section ul {
-    list-style: none; /* Remove default list styles */
-    padding: 0; /* Remove padding */
+.features-section p {
+  font-size: 1em;
+  color: #555;
 }
 
-.features-section li {
-    display: flex; /* Use flexbox for icon and text alignment */
-    align-items: center; /* Center the icon vertically */
-    margin-bottom: 20px; /* Spacing between items */
- 
+/* Modal Styles */
+.modal-content {
+  border-radius: 10px;
 }
 
-@media (max-width: 600px) {
-    .nav ul {
-        flex-direction: column; /* Stack menu items vertically */
-        margin-top: 10px;
-    }
-    
-    .nav li {
-        margin-left: 0; /* Reset margin for vertical alignment */
-        margin-bottom: 10px; /* Spacing between items */
-    }
-
-    #hero {
-        padding: 50px 10px; /* Adjust padding for smaller screens */
-    }
-
-    .hero-section h1 {
-        font-size: 1.8em; /* Adjust font size for smaller screens */
-    }
-
-    .hero-section p {
-        font-size: 1em; /* Adjust font size for smaller screens */
-    }
-
-    .upload-container,  .cta-section {
-        padding: 15px; /* Adjust padding for smaller screens */
-    }
-
-    .submit-button, .cta-button {
-        padding: 8px 15px; /* Adjust button padding for smaller screens */
-    }
-    .features-section h2 {
-        font-size: 1.5em; /* Adjust font size for smaller screens */
-    }
-
-    .features-section li {
-        padding: 10px; /* Adjust padding for smaller screens */
-    }
-
-    .feature-icon {
-        font-size: 1.5em; /* Adjust icon size for smaller screens */
-    }
+.modal-header {
+  border-bottom: none;
 }
 
-/* Styles for Name Input */
-.name-input-container {
-    margin-bottom: 20px; /* Space between the input and other elements */
-    text-align: left; /* Align text to the left */
+.modal-title {
+  color: #4caf50;
 }
 
-.name-input-container label {
-    font-size: 18px; /* Label text size */
-    color: #333; /* Label color */
-    margin-left: 75px;
+.close {
+  font-size: 1.5rem;
+  color: #aaa;
 }
 
-.name-input-container input {
-    width: 100%; /* Full-width input */
-    max-width: 400px; /* Maximum width */
-    padding: 10px; /* Padding inside input */
-    border: 1px solid #ccc; /* Light border around input */
-    border-radius: 5px; /* Rounded corners */
-    font-size: 16px; /* Input text size */
-    margin-top: 5px; /* Space between label and input */
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Light shadow */
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
 }
 
-.name-input-container input:focus {
-    border-color: #4CAF50; /* Green border when focused */
-    outline: none; /* Remove default outline */
-    box-shadow: 0 0 8px rgba(0, 255, 0, 0.2); /* Green glow on focus */
+#cancerType {
+  font-weight: bold;
+  color: #4caf50;
 }
 
+/* Loading Spinner Styles */
 #loadingSpinner {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 9999;
-    display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1050;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7); /* Changed to translucent black */
-    backdrop-filter: blur(2px); /* Optional: adds a slight blur effect */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .spinner {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 50px;
-    height: 50px;
-    border: 5px solid #f3f3f3; /* Light border for contrast */
-    border-top: 5px solid #4CAF50; /* Green spinner color */
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
+  z-index: 1060;
+  width: 50px;
+  height: 50px;
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
-    0% { transform: translate(-50%, -50%) rotate(0deg); }
-    100% { transform: translate(-50%, -50%) rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-/* Rest of your existing CSS styles */
+/* Responsive Design */
+@media (max-width: 992px) {
+  .hero-section {
+    padding: 100px 20px;
+  }
 
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    overflow-y: auto;
+  .upload-main-container {
+    padding: 80px 20px;
+  }
 }
-  
-.modal-content {
-    background-color: #fefefe;
-    margin: 20px auto;
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 80px 20px;
+  }
+
+  .upload-container {
     padding: 20px;
-    border-radius: 8px;
+  }
+
+  .features-section {
+    padding: 40px 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-section {
+    padding: 60px 10px;
+  }
+
+  .hero-section h1 {
+    font-size: 2em;
+  }
+
+  .hero-section p {
+    font-size: 1em;
+  }
+
+  .upload-container {
+    padding: 15px;
+  }
+
+  .features-section h2 {
+    font-size: 1.5em;
+  }
+
+  .cta-button {
+    padding: 8px 15px;
+  }
+
+  .modal-content {
     width: 90%;
-    max-width: 800px;
-    position: relative;
-}
-  
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-}
-  
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-}
-  
-.result-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-  
-.cancer-result {
-    padding: 15px;
-    background-color: #f8f9fa;
-    border-radius: 5px;
-    margin-bottom: 10px;
-}
-  
-.cancer-result p {
-    margin: 0;
-    font-size: 1.1em;
-}
-  
-#cancerType {
-    font-weight: bold;
-    color: #2c3e50;
-}
-  
-.document-preview {
-    border: 1px solid #ddd;
-    padding: 15px;
-    border-radius: 5px;
-    margin-top: 10px;
-}
-  
-.document-preview h3 {
-    margin-top: 0;
-    margin-bottom: 15px;
-    color: #2c3e50;
-}
-  
-.preview-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #f5f5f5;
-    border-radius: 4px;
-    overflow: hidden;
-    min-height: 200px;
-}
-  
-/* Make modal scrollable for long content */
-@media screen and (max-height: 800px) {
-    .modal-content {
-        margin: 10px auto;
-    }
+  }
 }

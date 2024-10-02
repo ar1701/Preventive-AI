@@ -19,27 +19,8 @@
       referrerpolicy="no-referrer"
     />
     <link rel="stylesheet" href="/css/styles.css" />
-    <style>
-      .modal-content {
-        max-width: 90vw;
-        max-height: 90vh;
-        overflow: auto;
-      }
-      .preview-container {
-        margin-top: 20px;
-        max-height: 60vh;
-        overflow: auto;
-      }
-      .preview-container img {
-        max-width: 100%;
-        height: auto;
-      }
-      .preview-container iframe {
-        width: 100%;
-        height: 500px;
-        border: none;
-      }
-    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   </head>
   <body>
     <!-- Add this section where you want the flash messages to appear -->
@@ -55,7 +36,7 @@
         data-dismiss="alert"
         aria-label="Close"
       >
-        <span aria-hidden="true">&times;</span>
+        <span aria-hidden="true">×</span>
       </button>
     </div>
     <% } %> <% if (messages.success) { %>
@@ -70,166 +51,279 @@
         data-dismiss="alert"
         aria-label="Close"
       >
-        <span aria-hidden="true">&times;</span>
+        <span aria-hidden="true">×</span>
       </button>
     </div>
     <% } %> -->
 
     <!-- Header -->
-    <nav class="nav">
-      <div class="logo">AI Cancer Detection</div>
-      <ul>
-        <li><a href="/scan">Home</a></li>
-        <li><a href="/scan">Upload</a></li>
-        <li><a href="/scan">About</a></li>
-        <li><a href="/scan">Contact</a></li>
-      </ul>
+    <nav class="nav navbar navbar-expand-lg navbar-dark bg-success">
+      <a class="logo navbar-brand">AI Cancer Detection</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/scan"
+              >Home <span class="sr-only">(current)</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/scan">Upload</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/scan">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/scan">Contact</a>
+          </li>
+        </ul>
+      </div>
     </nav>
 
     <!-- Hero Section -->
-    <div id="hero" class="hero-section">
-      <h1>Revolutionizing Early Cancer Detection</h1>
-      <p>
-        Utilizing AI to provide accurate, early detection of cancer, improving
-        outcomes for patients everywhere.
-      </p>
-    </div>
+    <section id="hero" class="hero-section d-flex align-items-center">
+      <div class="container text-center">
+        <h1 class="display-4">Revolutionizing Early Cancer Detection</h1>
+        <p class="lead">
+          Utilizing AI to provide accurate, early detection of cancer, improving
+          outcomes for patients everywhere.
+        </p>
+      </div>
+    </section>
 
-    <div>
-      <section class="features-section">
-        <h2>Key Features</h2>
-        <ul>
-          <li>
-            <strong>Data Analysis:</strong> Utilizes medical images, genomic
-            data, and electronic health records for comprehensive analysis.
-          </li>
-          <li>
-            <strong>High-Risk Identification:</strong> Detects and alerts
-            healthcare providers to patients at high risk for cancer.
-          </li>
-          <li>
-            <strong>Accurate Classification:</strong> Classifies cancer types
-            and stages with high accuracy for tailored treatment plans.
-          </li>
-          <li>
-            <strong>Real-Time Alerts:</strong> Provides timely alerts to
-            healthcare providers for further screening and intervention.
-          </li>
-          <li>
-            <strong>Enhanced Outcomes:</strong> Aims to improve cancer detection
-            rates and patient outcomes through early intervention.
-          </li>
-        </ul>
-      </section>
-    </div>
-
-    <div class="upload-main-container">
-      <div class="upload-container">
-        <h1>Upload Your File</h1>
-        <form
-          id="uploadForm"
-          action="/scan"
-          method="post"
-          enctype="multipart/form-data"
-        >
-          <!-- Name input field -->
-          <div class="name-input-container">
-            <label for="userName">Enter your name:</label>
-            <input
-              type="text"
-              id="userName"
-              name="userName"
-              placeholder="Your name..."
-              required
-            />
+    <!-- Features Section -->
+    <section class="features-section py-5">
+      <div class="container">
+        <h2 class="text-center mb-4">Key Features</h2>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <h5><strong>Data Analysis:</strong></h5>
+            <p>
+              Utilizes medical images, genomic data, and electronic health
+              records for comprehensive analysis.
+            </p>
           </div>
-
-          <div class="file-type-options">
-            <label>
-              <input type="radio" name="fileType" value="image" required />
-              Upload Image
-            </label>
-            <label>
-              <input type="radio" name="fileType" value="pdf" /> Upload PDF
-            </label>
-            <label>
-              <input type="radio" name="fileType" value="text" /> Upload Text
-            </label>
+          <div class="col-md-6 mb-3">
+            <h5><strong>High-Risk Identification:</strong></h5>
+            <p>
+              Detects and alerts healthcare providers to patients at high risk
+              for cancer.
+            </p>
           </div>
-
-          <div class="file-input-container">
-            <input
-              type="file"
-              id="fileInput"
-              name="file"
-              accept="image/*,.pdf"
-              style="display: none"
-            />
-            <button type="button" id="fileSelectButton">Select File</button>
-            <span id="fileInfo"></span>
+          <div class="col-md-6 mb-3">
+            <h5><strong>Accurate Classification:</strong></h5>
+            <p>
+              Classifies cancer types and stages with high accuracy for tailored
+              treatment plans.
+            </p>
           </div>
+          <div class="col-md-6 mb-3">
+            <h5><strong>Real-Time Alerts:</strong></h5>
+            <p>
+              Provides timely alerts to healthcare providers for further
+              screening and intervention.
+            </p>
+          </div>
+          <div class="col-md-6 mb-3">
+            <h5><strong>Enhanced Outcomes:</strong></h5>
+            <p>
+              Aims to improve cancer detection rates and patient outcomes
+              through early intervention.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-          <div
-            id="scanOptionsContainer"
-            class="scanOptionsContainer"
-            style="display: none"
+    <!-- Upload Section -->
+    <section class="upload-main-container py-5">
+      <div class="container">
+        <div class="upload-container">
+          <h2 class="mb-4">Upload Your File</h2>
+          <form
+            id="uploadForm"
+            action="/scan"
+            method="post"
+            enctype="multipart/form-data"
           >
-            <p>Select Scan Type:</p>
-            <label>
-              <input type="radio" name="scanType" value="highLevel" /> CTscan /
-              X-Ray
-            </label>
-            <label>
-              <input type="radio" name="scanType" value="lowLevel" /> Biopsy
-            </label>
+            <div class="form-group">
+              <label for="userName">Enter your name:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="userName"
+                name="userName"
+                placeholder="Your name..."
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label>Choose File Type:</label>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="fileType"
+                  id="fileTypeImage"
+                  value="image"
+                  required
+                />
+                <label class="form-check-label" for="fileTypeImage"
+                  >Upload Image</label
+                >
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="fileType"
+                  id="fileTypePDF"
+                  value="pdf"
+                />
+                <label class="form-check-label" for="fileTypePDF"
+                  >Upload PDF</label
+                >
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="fileType"
+                  id="fileTypeText"
+                  value="text"
+                />
+                <label class="form-check-label" for="fileTypeText"
+                  >Upload Text</label
+                >
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="fileInput">Select File:</label>
+              <div class="custom-file">
+                <input
+                  type="file"
+                  class="custom-file-input"
+                  id="fileInput"
+                  name="file"
+                  accept="image/*,.pdf"
+                  required
+                />
+                <label class="custom-file-label" for="fileInput"
+                  >Choose file</label
+                >
+              </div>
+            </div>
+
+            <div
+              id="scanOptionsContainer"
+              class="form-group"
+              style="display: none"
+            >
+              <label>Select Scan Type:</label>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="scanType"
+                  id="highLevel"
+                  value="highLevel"
+                />
+                <label class="form-check-label" for="highLevel"
+                  >High-Level Scans</label
+                >
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="scanType"
+                  id="lowLevel"
+                  value="lowLevel"
+                />
+                <label class="form-check-label" for="lowLevel"
+                  >Low-Level Scans</label
+                >
+              </div>
+            </div>
+
+            <div
+              id="textInputContainer"
+              class="form-group"
+              style="display: none"
+            >
+              <label for="textInput">Enter Symptoms:</label>
+              <textarea
+                class="form-control"
+                id="textInput"
+                name="textInput"
+                rows="4"
+                placeholder="Enter symptoms if you are having any..."
+              ></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-success btn-block">
+              Upload
+            </button>
+          </form>
+          <!-- Loading Spinner -->
+          <div id="loadingSpinner" style="display: none">
+            <div class="overlay"></div>
+            <div class="spinner"></div>
           </div>
-
-          <div id="textInputContainer" style="display: none">
-            <textarea
-              id="textInput"
-              name="textInput"
-              rows="4"
-              placeholder="Enter Symptoms if you are having any......"
-            ></textarea>
-          </div>
-
-          <button type="submit" class="submit-button">Upload</button>
-        </form>
-
-        <!-- Loading Spinner -->
-        <div id="loadingSpinner" style="display: none;">
-          <div class="overlay"></div>
-          <div class="spinner"></div>
+        </div>
       </div>
-      </div>
-    </div>
+    </section>
 
-    <!-- Updated Modal with Preview -->
+    <!-- Modal -->
     <div id="resultModal" class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>Cancer Detection Result</h2>
-        <p>The predicted cancer type is: <span id="cancerType"></span></p>
-        <div id="documentPreview" class="preview-container">
-          <!-- Preview content will be inserted here -->
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Cancer Detection Result</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>The predicted cancer type is: <span id="cancerType"></span></p>
+          </div>
         </div>
       </div>
     </div>
+
     <!-- Call to Action Section -->
-    <section class="cta-section">
-      <h2>Get Started</h2>
-      <p>
-        Join us in revolutionizing cancer detection. Contact us today to learn
-        how our AI solution can benefit your healthcare practice.
-      </p>
-      <a href="#" class="cta-button">Contact Us</a>
+    <section class="cta-section text-center py-5">
+      <div class="container">
+        <h2>Get Started</h2>
+        <p>
+          Join us in revolutionizing cancer detection. Contact us today to learn
+          how our AI solution can benefit your healthcare practice.
+        </p>
+        <a href="#" class="btn btn-success mt-3">Contact Us</a>
+      </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
-      <p>&copy; 2024 AI Cancer Detection. All rights reserved.</p>
+      <p>© 2024 AI Cancer Detection. All rights reserved.</p>
     </footer>
-
     <script src="/scripts/script.js"></script>
     <script
       src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -241,5 +335,106 @@
       integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
       crossorigin="anonymous"
     ></script>
+    <script>
+      // Register ScrollTrigger plugin
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Hero Section Animations
+      gsap.from(".hero-section h1", {
+        scrollTrigger: {
+          trigger: ".hero-section",
+          start: "top center",
+          toggleActions: "play none none reverse",
+        },
+        y: 50,
+        opacity: 0,
+        duration: 1,
+      });
+
+      gsap.from(".hero-section p", {
+        scrollTrigger: {
+          trigger: ".hero-section",
+          start: "top center",
+          toggleActions: "play none none reverse",
+        },
+        y: 50,
+        opacity: 0,
+        duration: 1,
+        delay: 0.2,
+      });
+
+      // Features Section Animations
+      gsap.from(".features-section h2", {
+        scrollTrigger: {
+          trigger: ".features-section",
+          start: "top center+=100",
+          toggleActions: "play none none reverse",
+        },
+        y: 50,
+        opacity: 0,
+        duration: 1,
+      });
+
+      gsap.from(".features-section .row > div", {
+        scrollTrigger: {
+          trigger: ".features-section",
+          start: "top center+=100",
+          toggleActions: "play none none reverse",
+        },
+        y: 50,
+        opacity: 0,
+        stagger: 0.2,
+        duration: 1,
+      });
+
+      // Upload Section Animations
+      gsap.from(".upload-container h2", {
+        scrollTrigger: {
+          trigger: ".upload-main-container",
+          start: "top center+=100",
+          toggleActions: "play none none reverse",
+        },
+        y: 50,
+        opacity: 0,
+        duration: 1,
+      });
+
+      gsap.from(".upload-container form", {
+        scrollTrigger: {
+          trigger: ".upload-main-container",
+          start: "top center+=100",
+          toggleActions: "play none none reverse",
+        },
+        y: 50,
+        opacity: 0,
+        duration: 1,
+        delay: 0.2,
+      });
+
+      // CTA Section Animations
+      gsap.from(".cta-section h2", {
+        scrollTrigger: {
+          trigger: ".cta-section",
+          start: "top center+=100",
+          toggleActions: "play none none reverse",
+        },
+        y: 50,
+        opacity: 0,
+        duration: 1,
+      });
+
+      gsap.from(".cta-section p, .cta-section .btn", {
+        scrollTrigger: {
+          trigger: ".cta-section",
+          start: "top center+=100",
+          toggleActions: "play none none reverse",
+        },
+        y: 50,
+        opacity: 0,
+        duration: 1,
+        delay: 0.2,
+        stagger: 0.2,
+      });
+    </script>
   </body>
 </html>
