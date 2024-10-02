@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>AI-Powered Cancer Detection Solution</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+      integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <style>
+      .modal-content {
+        max-width: 90vw;
+        max-height: 90vh;
+        overflow: auto;
+      }
+      .preview-container {
+        margin-top: 20px;
+        max-height: 60vh;
+        overflow: auto;
+      }
+      .preview-container img {
+        max-width: 100%;
+        height: auto;
+      }
+      .preview-container iframe {
+        width: 100%;
+        height: 500px;
+        border: none;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Add this section where you want the flash messages to appear -->
+    <!-- <% if (messages.error) { %>
+    <div
+      class="alert alert-danger alert-dismissible fade show col-4 offset-4"
+      role="alert"
+    >
+      <%= messages.error %>
+      <button
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <% } %> <% if (messages.success) { %>
+    <div
+      class="alert alert-success alert-dismissible fade show col-4 offset-4"
+      role="alert"
+    >
+      <%= messages.success %>
+      <button
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <% } %> -->
+
+    <!-- Header -->
+    <nav class="nav">
+      <div class="logo">AI Cancer Detection</div>
+      <ul>
+        <li><a href="/scan">Home</a></li>
+        <li><a href="/scan">Upload</a></li>
+        <li><a href="/scan">About</a></li>
+        <li><a href="/scan">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <div id="hero" class="hero-section">
+      <h1>Revolutionizing Early Cancer Detection</h1>
+      <p>
+        Utilizing AI to provide accurate, early detection of cancer, improving
+        outcomes for patients everywhere.
+      </p>
+    </div>
+
+    <div>
+      <section class="features-section">
+        <h2>Key Features</h2>
+        <ul>
+          <li>
+            <strong>Data Analysis:</strong> Utilizes medical images, genomic
+            data, and electronic health records for comprehensive analysis.
+          </li>
+          <li>
+            <strong>High-Risk Identification:</strong> Detects and alerts
+            healthcare providers to patients at high risk for cancer.
+          </li>
+          <li>
+            <strong>Accurate Classification:</strong> Classifies cancer types
+            and stages with high accuracy for tailored treatment plans.
+          </li>
+          <li>
+            <strong>Real-Time Alerts:</strong> Provides timely alerts to
+            healthcare providers for further screening and intervention.
+          </li>
+          <li>
+            <strong>Enhanced Outcomes:</strong> Aims to improve cancer detection
+            rates and patient outcomes through early intervention.
+          </li>
+        </ul>
+      </section>
+    </div>
+
+    <div class="upload-main-container">
+      <div class="upload-container">
+        <h1>Upload Your File</h1>
+        <form
+          id="uploadForm"
+          action="/scan"
+          method="post"
+          enctype="multipart/form-data"
+        >
+          <!-- Name input field -->
+          <div class="name-input-container">
+            <label for="userName">Enter your name:</label>
+            <input
+              type="text"
+              id="userName"
+              name="userName"
+              placeholder="Your name..."
+              required
+            />
+          </div>
+
+          <div class="file-type-options">
+            <label>
+              <input type="radio" name="fileType" value="image" required />
+              Upload Image
+            </label>
+            <label>
+              <input type="radio" name="fileType" value="pdf" /> Upload PDF
+            </label>
+            <label>
+              <input type="radio" name="fileType" value="text" /> Upload Text
+            </label>
+          </div>
+
+          <div class="file-input-container">
+            <input
+              type="file"
+              id="fileInput"
+              name="file"
+              accept="image/*,.pdf"
+              style="display: none"
+            />
+            <button type="button" id="fileSelectButton">Select File</button>
+            <span id="fileInfo"></span>
+          </div>
+
+          <div
+            id="scanOptionsContainer"
+            class="scanOptionsContainer"
+            style="display: none"
+          >
+            <p>Select Scan Type:</p>
+            <label>
+              <input type="radio" name="scanType" value="highLevel" /> CTscan /
+              X-Ray
+            </label>
+            <label>
+              <input type="radio" name="scanType" value="lowLevel" /> Biopsy
+            </label>
+          </div>
+
+          <div id="textInputContainer" style="display: none">
+            <textarea
+              id="textInput"
+              name="textInput"
+              rows="4"
+              placeholder="Enter Symptoms if you are having any......"
+            ></textarea>
+          </div>
+
+          <button type="submit" class="submit-button">Upload</button>
+        </form>
+
+        <!-- Loading Spinner -->
+        <div id="loadingSpinner" style="display: none;">
+          <div class="overlay"></div>
+          <div class="spinner"></div>
+      </div>
+      </div>
+    </div>
+
+    <!-- Updated Modal with Preview -->
+    <div id="resultModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Cancer Detection Result</h2>
+        <p>The predicted cancer type is: <span id="cancerType"></span></p>
+        <div id="documentPreview" class="preview-container">
+          <!-- Preview content will be inserted here -->
+        </div>
+      </div>
+    </div>
+    <!-- Call to Action Section -->
+    <section class="cta-section">
+      <h2>Get Started</h2>
+      <p>
+        Join us in revolutionizing cancer detection. Contact us today to learn
+        how our AI solution can benefit your healthcare practice.
+      </p>
+      <a href="#" class="cta-button">Contact Us</a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>&copy; 2024 AI Cancer Detection. All rights reserved.</p>
+    </footer>
+
+    <script src="/scripts/script.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
