@@ -6,7 +6,7 @@ const CancerData = require("./models/upload.js");
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 const https = require("https");
 const API_KEY = process.env.PDF_API_KEY;
-const predict = require("./testModel.js");
+const predict = require("./AI/testModel.js");
 
 const cloudinary = require("cloudinary").v2;
 const express = require("express");
@@ -141,18 +141,8 @@ app.post("/scan", upload.single("file"), async (req, res) => {
       }
     } else if (fileType === "image") {
       filePath = req.file.path;
-      // try {
-      //   extractedTextImg = await imageToText(filePath);
-      //   resultImg = await reportAnalysis(extractedTextImg);
-
-      // } catch (e) {
-      //   console.error("Error processing image:", e);
-      //   throw new Error(`Failed to process image: ${e.message}`);
-      // }
       try {
-        // Await the predict function
         resultImg = await predict(filePath);
-        // console.log("Prediction:", resultImg);
       } catch (e) {
         console.error("Error processing image:", e);
         throw new Error(`Failed to process image: ${e.message}`);
@@ -187,11 +177,10 @@ app.post("/scan", upload.single("file"), async (req, res) => {
     await formData.save();
 
     req.flash("success", "Data Uploaded Successfully!");
-    // Send cancer class and filePath to frontend
     res.status(200).json({
       success: true,
       cancerClass,
-      filePath: fileType !== "text" ? filePath : null, // Only send filePath for non-text uploads
+      filePath: fileType !== "text" ? filePath : null, 
     });
   } catch (error) {
     console.error("Error in /scan route:", error);
