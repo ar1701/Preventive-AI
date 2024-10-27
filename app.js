@@ -6,6 +6,7 @@ const CancerData = require("./models/upload.js");
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 const https = require("https");
 const API_KEY = process.env.PDF_API_KEY;
+const predict = require("./testModel.js");
 
 const cloudinary = require("cloudinary").v2;
 const express = require("express");
@@ -96,10 +97,10 @@ function fileToGenerativePart(path, mimeType) {
   };
 }
 
-let port = 8080;
+let port = 3000;
 
 app.listen(port, (req, res) => {
-  console.log("Listening to the Port: http://localhost:8080/scan");
+  console.log("Listening to the Port: http://localhost:3000/scan");
 });
 
 app.get("/scan", (req, res) => {
@@ -108,13 +109,12 @@ app.get("/scan", (req, res) => {
 
 async function reportAnalysis(report) {
   const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-  const prompt = `Predicts the type of cancer. CThe Report include ${report}, though a medical professional should be consulted for an accurate diagnosis and further examination. Analyze the Report in only 3 bullet points`;
+  const prompt = `Predicts the type of cancer based on the provided data. The report includes ${report}; however, for an accurate diagnosis and further evaluation, consultation with a medical professional is essential. Summarize the report in three key bullet points.`;
   const result = await model.generateContent(prompt);
   const response = await result.response;
   const text = response.text();
   return text;
 }
-
 
 app.post("/scan", upload.single("file"), async (req, res) => {
   try {
@@ -141,10 +141,18 @@ app.post("/scan", upload.single("file"), async (req, res) => {
       }
     } else if (fileType === "image") {
       filePath = req.file.path;
+      // try {
+      //   extractedTextImg = await imageToText(filePath);
+      //   resultImg = await reportAnalysis(extractedTextImg);
+
+      // } catch (e) {
+      //   console.error("Error processing image:", e);
+      //   throw new Error(`Failed to process image: ${e.message}`);
+      // }
       try {
-        extractedTextImg = await imageToText(filePath);
-        resultImg = await reportAnalysis(extractedTextImg);
-        
+        // Await the predict function
+        resultImg = await predict(filePath);
+        // console.log("Prediction:", resultImg);
       } catch (e) {
         console.error("Error processing image:", e);
         throw new Error(`Failed to process image: ${e.message}`);
@@ -180,21 +188,23 @@ app.post("/scan", upload.single("file"), async (req, res) => {
 
     req.flash("success", "Data Uploaded Successfully!");
     // Send cancer class and filePath to frontend
-    res.status(200).json({ 
-      success: true, 
+    res.status(200).json({
+      success: true,
       cancerClass,
-      filePath: fileType !== 'text' ? filePath : null  // Only send filePath for non-text uploads
+      filePath: fileType !== "text" ? filePath : null, // Only send filePath for non-text uploads
     });
   } catch (error) {
     console.error("Error in /scan route:", error);
-    req.flash("error", error.message || "Failed to submit form or predict cancer class");
+    req.flash(
+      "error",
+      error.message || "Failed to submit form or predict cancer class"
+    );
     res.status(500).json({
       success: false,
       error: error.message || "Failed to submit form or predict cancer class",
     });
   }
 });
-
 
 function convertPDFToImageFromURL(
   pdfUrl,
@@ -261,7 +271,8 @@ async function imageToText(iurl) {
       messages: [
         {
           role: "user",
-          content: "Extract the text only from the following image. Don't give any description about the image."
+          content:
+            "Extract the text only from the following image. Don't give any description about the image.",
         },
         {
           role: "user",
@@ -269,18 +280,18 @@ async function imageToText(iurl) {
             {
               type: "image_url",
               image_url: {
-                url: iurl
-              }
-            }
-          ]
-        }
+                url: iurl,
+              },
+            },
+          ],
+        },
       ],
       model: "llama-3.2-11b-vision-preview",
       temperature: 0.7,
       max_tokens: 1024,
       top_p: 1,
       stream: false,
-      stop: null
+      stop: null,
     });
     return chatCompletion.choices[0].message.content;
   } catch (error) {
@@ -289,6 +300,6 @@ async function imageToText(iurl) {
   }
 }
 
-app.get("*", (req,res)=>{
-  res.redirect("/scan")
+app.get("*", (req, res) => {
+  res.redirect("/scan");
 });
