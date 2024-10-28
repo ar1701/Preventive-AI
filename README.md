@@ -22,7 +22,7 @@ The purpose of this project is to provide healthcare professionals with an effic
 ## Technologies Used
 
 ### Frontend:
-- **HTML/CSS/JavaScript**: The website interface is built using basic HTML, CSS, and JavaScript for user interaction and file uploads.
+- **EJS/CSS/JavaScript**: The website interface is built using basic HTML, CSS, and JavaScript for user interaction and file uploads.
 
 ### Backend:
 - **Cloudinary API**: Used for securely storing uploaded images and PDF reports in the cloud.
