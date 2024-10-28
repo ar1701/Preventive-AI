@@ -19,65 +19,14 @@
       referrerpolicy="no-referrer"
     />
     <link rel="stylesheet" href="/css/styles.css" />
-    <style>
-      .modal-content {
-        max-width: 90vw;
-        max-height: 90vh;
-        overflow: auto;
-      }
-      .preview-container {
-        margin-top: 20px;
-        max-height: 60vh;
-        overflow: auto;
-      }
-      .preview-container img {
-        max-width: 100%;
-        height: auto;
-      }
-      .preview-container iframe {
-        width: 100%;
-        height: 500px;
-        border: none;
-      }
-    </style>
   </head>
   <body>
-    <!-- Add this section where you want the flash messages to appear -->
-    <!-- <% if (messages.error) { %>
-    <div
-      class="alert alert-danger alert-dismissible fade show col-4 offset-4"
-      role="alert"
-    >
-      <%= messages.error %>
-      <button
-        type="button"
-        class="close"
-        data-dismiss="alert"
-        aria-label="Close"
-      >
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <% } %> <% if (messages.success) { %>
-    <div
-      class="alert alert-success alert-dismissible fade show col-4 offset-4"
-      role="alert"
-    >
-      <%= messages.success %>
-      <button
-        type="button"
-        class="close"
-        data-dismiss="alert"
-        aria-label="Close"
-      >
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <% } %> -->
-
-    <!-- Header -->
+    
     <nav class="nav">
       <div class="logo">AI Cancer Detection</div>
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
       <ul>
         <li><a href="/scan">Home</a></li>
         <li><a href="/scan">Upload</a></li>
@@ -157,15 +106,14 @@
             </label>
           </div>
 
-          <div class="file-input-container">
-            <input
-              type="file"
-              id="fileInput"
-              name="file"
-              accept="image/*,.pdf"
-              style="display: none"
-            />
-            <button type="button" id="fileSelectButton">Select File</button>
+          <div class="file-input-container" id="dropZone">
+            <span class="file-type-label">Upload</span>
+            <input type="file" id="fileInput" name="file" accept="image/*,.pdf" style="display: none" />
+            <button type="button" id="fileSelectButton">
+              <i class="fas fa-cloud-upload-alt"></i>
+              Select File
+            </button>
+            <p class="upload-instructions">or drag and drop your file here</p>
             <span id="fileInfo"></span>
           </div>
 
@@ -204,17 +152,31 @@
       </div>
     </div>
 
-    <!-- Updated Modal with Preview -->
-    <div id="resultModal" class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>Cancer Detection Result</h2>
-        <p>The predicted cancer type is: <span id="cancerType"></span></p>
-        <div id="documentPreview" class="preview-container">
-          <!-- Preview content will be inserted here -->
-        </div>
+    
+<div id="resultModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    
+    <div class="modal-header">
+      <h2>Cancer Detection Analysis</h2>
+      <p>Analysis completed <span id="analysisDate"></span></p>
+    </div>
+
+    <br>
+    <div class="result-summary">
+      <div class="cancer-type">
+        <b>Detected Type:</b> <span id="cancerType"></span>
       </div>
     </div>
+    <br>
+
+    <div id="documentPreview" class="preview-container">
+      <!-- Preview content will be inserted here -->
+    </div>
+
+   
+  </div>
+</div>
     <!-- Call to Action Section -->
     <section class="cta-section">
       <h2>Get Started</h2>
@@ -227,10 +189,55 @@
 
     <!-- Footer -->
     <footer class="footer">
-      <p>&copy; 2024 AI Cancer Detection. All rights reserved.</p>
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>About Us</h3>
+          <p>Revolutionizing cancer detection through advanced AI technology, providing accurate and early diagnosis for better patient outcomes.</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+    
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="#"><i class="fas fa-chevron-right"></i>Home</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i>About</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i>Services</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i>Contact</a></li>
+          </ul>
+        </div>
+    
+        <div class="footer-section">
+          <h3>Our Services</h3>
+          <ul class="footer-links">
+            <li><a href="#"><i class="fas fa-check-circle"></i>Cancer Detection</a></li>
+            <li><a href="#"><i class="fas fa-check-circle"></i>Early Diagnosis</a></li>
+            <li><a href="#"><i class="fas fa-check-circle"></i>Risk Assessment</a></li>
+            <li><a href="#"><i class="fas fa-check-circle"></i>Medical Consultation</a></li>
+          </ul>
+        </div>
+    
+        <div class="footer-section">
+          <h3>Contact Info</h3>
+          <ul class="footer-links">
+            <li><a href="#"><i class="fas fa-phone"></i>+1 234 567 8900</a></li>
+            <li><a href="#"><i class="fas fa-envelope"></i>info@aidetection.com</a></li>
+            <li><a href="#"><i class="fas fa-map-marker-alt"></i>123 Medical Center Dr, Suite 100</a></li>
+          </ul>
+        </div>
+      </div>
+    
+      <div class="footer-bottom">
+        <p>&copy; 2024 AI Cancer Detection. All rights reserved.</p>
+      </div>
     </footer>
 
     <script src="/scripts/script.js"></script>
+    <script src="/scripts/nav.js"></script>
     <script
       src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
       integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

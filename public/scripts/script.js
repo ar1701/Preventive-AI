@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const uploadForm = document.getElementById('uploadForm');
     const loadingSpinner = document.getElementById('loadingSpinner');
     const documentPreview = document.getElementById('documentPreview');
+    
 
     // Function to handle file type changes
     function handleFileTypeChange() {
@@ -85,6 +86,23 @@ document.addEventListener('DOMContentLoaded', function() {
         return true;
     }
 
+    // Function to show loading spinner
+    function showLoadingSpinner() {
+        if (!loadingSpinner.querySelector('.spinner')) {
+            const spinner = document.createElement('div');
+            spinner.className = 'spinner';
+            loadingSpinner.appendChild(spinner);
+        }
+        loadingSpinner.style.display = 'flex';
+        document.body.style.overflow = 'hidden'; // Prevent scrolling while loading
+    }
+
+    // Function to hide loading spinner
+    function hideLoadingSpinner() {
+        loadingSpinner.style.display = 'none';
+        document.body.style.overflow = ''; // Restore scrolling
+    }
+
     // Function to handle form submission
     function handleFormSubmit(event) {
         event.preventDefault();
@@ -95,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const fileType = document.querySelector('input[name="fileType"]:checked').value;
 
         // Show the loading spinner
-        toggleElementDisplay(loadingSpinner, true);
+        showLoadingSpinner();
 
         fetch('/scan', {
             method: 'POST',
@@ -104,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             // Hide the loading spinner
-            toggleElementDisplay(loadingSpinner, false);
+            hideLoadingSpinner();
 
             if (data.success) {
                 cancerTypeSpan.textContent = data.cancerClass[0];
@@ -121,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => {
             // Hide the loading spinner
-            toggleElementDisplay(loadingSpinner, false);
+            hideLoadingSpinner();
             console.error('Error:', error);
             alert('An error occurred. Please try again.');
         });

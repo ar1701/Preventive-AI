@@ -1,6 +1,7 @@
 ### Deployed Link: https://genai-ai-cancer-detection.onrender.com
 #### Note:-
-This website is deployed on a free service called (Render.com). So It might take 40-50 sec to open for the first time in your pc, but once it opened it will be much faster.
+⚡ First visit may take up to 50 seconds - we're using Render's free hosting.
+Don't worry, it'll be fast and smooth after that!
 
 # AI-Powered Cancer Detection Solution
 
