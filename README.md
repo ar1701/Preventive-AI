@@ -64,8 +64,10 @@ To run this project locally, follow the steps below:
     ```bash
     CLOUDINARY_API_KEY=your_cloudinary_key
     CLOUDINARY_API_SECRET=your_cloudinary_secret
+    CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
     GROQ_API_KEY=your_groq_key
     PDF_API_KEY=your_pdfco_key
+    ATLASDB_URL=your_mongodbatlas_url
     ```
 
 4. Run the development server:
