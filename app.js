@@ -22,6 +22,7 @@ const MongoStore = require("connect-mongo");
 const LocalStrategy = require("passport-local");
 const passport = require("passport");
 const flash = require("connect-flash");
+const processImage = require("./run.js")
 
 const multer = require("multer");
 const { storage } = require("./cloudConfig.js");
@@ -130,7 +131,8 @@ app.post("/scan", upload.single("file"), async (req, res) => {
       try {
         let imageUrls = await convertPDFToImageFromURL(filePath);
         if (imageUrls && imageUrls.length > 0) {
-          let extractedText = await imageToText(imageUrls[0]);
+          // Now this should work correctly
+          let extractedText = await processImage(imageUrls[0]);
           resultPdf = await reportAnalysis(extractedText);
         } else {
           throw new Error("No image URLs returned from PDF conversion");
@@ -139,49 +141,49 @@ app.post("/scan", upload.single("file"), async (req, res) => {
         console.error("Error processing PDF:", e);
         throw new Error(`Failed to process PDF: ${e.message}`);
       }
-    } else if (fileType === "image") {
+    }else if (fileType === "image") {
       filePath = req.file.path;
+      console.log(filePath);
       try {
-        resultImg = await predict(filePath);
-      } catch (e) {
-        console.error("Error processing image:", e);
-        throw new Error(`Failed to process image: ${e.message}`);
-      }
-    } else if (fileType === "text") {
+      resultImg = await predict(filePath);
+       } catch (e) {
+      console.error("Error processing image:", e);
+      throw new Error(`Failed to process image: ${e.message}`);
+       }
+       } else if (fileType === "text") {
       try {
-        let result = await reportAnalysis(textInput);
-        cancerClass = [result];
-      } catch (e) {
-        console.error("Error processing text input:", e);
-        throw new Error(`Failed to process text input: ${e.message}`);
-      }
-    } else {
+      let result = await reportAnalysis(textInput);
+      cancerClass = [result];
+       } catch (e) {
+      console.error("Error processing text input:", e);
+      throw new Error(`Failed to process text input: ${e.message}`);
+       }
+       } else {
       throw new Error("Invalid file type");
-    }
-
-    if (fileType === "image") {
+       }
+      if (fileType === "image") {
       cancerClass = [resultImg];
-    } else if (fileType === "pdf") {
+       } else if (fileType === "pdf") {
       cancerClass = [resultPdf];
-    }
-
-    // Save the form data to the database
-    const formData = new CancerData({
+       }
+      // Save the form data to the database
+      const formData = new CancerData({
       userName,
       fileType,
       scanType,
       filePath,
       textInput,
       cancerClass,
-    });
-    await formData.save();
-
-    req.flash("success", "Data Uploaded Successfully!");
-    res.status(200).json({
+       });
+      await formData.save();
+      req.flash("success", "Data Uploaded Successfully!");
+      res.status(200).json({
       success: true,
       cancerClass,
-      filePath: fileType !== "text" ? filePath : null, 
-    });
+      filePath: fileType !== "text" ? filePath : null,
+       });
+       
+    
   } catch (error) {
     console.error("Error in /scan route:", error);
     req.flash(
@@ -254,40 +256,40 @@ function convertPDFToImageFromURL(
   });
 }
 
-async function imageToText(iurl) {
-  try {
-    const chatCompletion = await groq.chat.completions.create({
-      messages: [
-        {
-          role: "user",
-          content:
-            "Extract the text only from the following image. Don't give any description about the image.",
-        },
-        {
-          role: "user",
-          content: [
-            {
-              type: "image_url",
-              image_url: {
-                url: iurl,
-              },
-            },
-          ],
-        },
-      ],
-      model: "llama-3.2-11b-vision-preview",
-      temperature: 0.7,
-      max_tokens: 1024,
-      top_p: 1,
-      stream: false,
-      stop: null,
-    });
-    return chatCompletion.choices[0].message.content;
-  } catch (error) {
-    console.error("Error in imageToText:", error);
-    throw error;
-  }
-}
+// async function imageToText(iurl) {
+//   try {
+//     const chatCompletion = await groq.chat.completions.create({
+//       messages: [
+//         {
+//           role: "user",
+//           content:
+//             "Extract the text only from the following image. Don't give any description about the image.",
+//         },
+//         {
+//           role: "user",
+//           content: [
+//             {
+//               type: "image_url",
+//               image_url: {
+//                 url: iurl,
+//               },
+//             },
+//           ],
+//         },
+//       ],
+//       model: "llama-3.2-11b-vision-preview",
+//       temperature: 0.7,
+//       max_tokens: 1024,
+//       top_p: 1,
+//       stream: false,
+//       stop: null,
+//     });
+//     return chatCompletion.choices[0].message.content;
+//   } catch (error) {
+//     console.error("Error in imageToText:", error);
+//     throw error;
+//   }
+// }
 
 app.get("*", (req, res) => {
   res.redirect("/scan");
